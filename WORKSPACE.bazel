@@ -1,5 +1,13 @@
-# Abseil Common Libraries.
+WIP EXAMPLE ONLY! Not valid.
 
+workspace(name = "com_google_oss_federation")
+
+# Abseil Common Libraries.
+http_archive(
+    name = "com_google_absl",
+    strip_prefix = "abseil-cpp-master",
+    urls = ["https://github.com/abseil/abseil-cpp/archive/master.zip"],
+)
 
 # GoogleTest/GoogleMock framework. Used by most unit-tests.
 http_archive(
