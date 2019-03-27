@@ -1,6 +1,6 @@
 WIP EXAMPLE ONLY! Not valid.
 
-workspace(name = "com_google_oss_federation")
+workspace(name = "com_google_absl_oss_federation")
 
 # Abseil Common Libraries.
 http_archive(
