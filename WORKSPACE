@@ -1,3 +1,4 @@
+workspace(name = "com_google_absl_oss_federation")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # Cut on 2019-04-04.
