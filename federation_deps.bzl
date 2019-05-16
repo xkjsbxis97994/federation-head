@@ -27,3 +27,12 @@ def federation_deps():
       strip_prefix = "benchmark-6a5c379cafef3b49314b600bec6a928ebb2f209a",
       sha256 = "4fe467aa56b3445f3175b24d95dc4fe6ff7efafb159865921c9542ae4f6e84ab",
     )
+
+    # zlib pinned to 1.2.11
+    http_archive(
+      name = "zlib",
+      urls = ["https://github.com/madler/zlib/archive/cacf7f1d4e3d44d871b605da3b647f07d718623f.zip"],  # 2017-01-15T17:29:40Z
+      strip_prefix = "zlib-cacf7f1d4e3d44d871b605da3b647f07d718623f",
+      sha256 = "1cce3828ec2ba80ff8a4cac0ab5aa03756026517154c4b450e617ede751d41bd",
+)
+
