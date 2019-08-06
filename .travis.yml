@@ -8,18 +8,20 @@ matrix:
     - os: linux
       dist: xenial
       compiler: gcc
+      install: ./ci/install-linux.sh && ./ci/log-config.sh
       script: ./ci/build-linux-bazel.sh
 
     - os: linux
       dist: xenial
       compiler: clang
+      install: ./ci/install-linux.sh && ./ci/log-config.sh
       script: ./ci/build-linux-bazel.sh
 
 # These are the install and build (script) phases for the most common entries in the matrix.  They could be included
 # in each entry in the matrix, but that is just repetitive.
-install:
-  - ./ci/install-${TRAVIS_OS_NAME}.sh
-  - ./ci/log-config.sh
+#install:
+#  - ./ci/install-${TRAVIS_OS_NAME}.sh
+#  - ./ci/log-config.sh
 
 
 # This section installs the necessary dependencies.
