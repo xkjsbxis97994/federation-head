@@ -1,0 +1,8 @@
+local_repository(
+  name = "com_google_absl_oss_federation",
+  path = "../"
+)
+
+load("@com_google_absl_oss_federation//:federation_deps.bzl", "federation_deps")
+
+federation_deps()

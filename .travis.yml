@@ -15,6 +15,7 @@ matrix:
     - os: linux
       dist: xenial
       compiler: clang
+      before_install: chmod -R +x ./ci/*.sh
       install: ./ci/install-linux.sh && ./ci/log-config.sh
       script: ./ci/build-linux-bazel.sh
 

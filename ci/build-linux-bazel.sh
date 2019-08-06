@@ -3,6 +3,10 @@
 set -e
 echo "build-linux-bazel.sh:"
 
-bazel build --curses=no //...:all
+cd test
+
 bazel test --curses=no //...:all
-bazel test --curses=no //...:all --define absl=1
+
+bazel test @com_google_absl//absl/...:all
+
+bazel test @com_google_googletest//googletest/...:all --define absl=1
