@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 set -e
+echo "log-config.sh:"
+
 
 echo "Compiler configuration:"
 echo CXX=${CXX}

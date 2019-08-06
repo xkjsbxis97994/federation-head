@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -eu
+echo "install-linux.sh:"
 
 if [ "${TRAVIS_OS_NAME}" != linux ]; then
     echo "Not a Linux build; skipping installation"
