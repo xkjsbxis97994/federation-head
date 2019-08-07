@@ -6,25 +6,25 @@ def federation_deps():
 # ********** com_google_absl *****************
     http_archive(
       name = "com_google_absl",
-      urls = ["https://github.com/abseil/abseil-cpp/archive/14550beb3b7b97195e483fb74b5efb906395c31e.zip"],  # 2019-07-31T20:07:55Z
-      strip_prefix = "abseil-cpp-14550beb3b7b97195e483fb74b5efb906395c31e",
-      sha256 = "ab24dc0f830e82574c7268693189db387cca6aa3adc02558445641f5492729b5",
+      urls = ["https://github.com/abseil/abseil-cpp/archive/67222ffc4c83d918ce8395aa61769eeb77df4c4d.zip"],  # 2019-08-06T18:16:08Z
+      strip_prefix = "abseil-cpp-67222ffc4c83d918ce8395aa61769eeb77df4c4d",
+      sha256 = "84fe441b69093cac2f3c7626693e7cf50b0f61053e096d713b778090d50513fe",
 )
 
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/11be5f534cfca1139880dd66727c15f5bd1e0780.zip"],  # 2019-08-05T17:27:00Z
-      strip_prefix = "googletest-11be5f534cfca1139880dd66727c15f5bd1e0780",
-      sha256 = "6bc3c70cf8be60d120aeb957381eb84c0e018554eacb93b4409c0a3a0eb94a01",
+      urls = ["https://github.com/google/googletest/archive/f64f7bd36735e14f520d8813af5b7cb780b7e164.zip"],  # 2019-08-06T19:51:51Z
+      strip_prefix = "googletest-f64f7bd36735e14f520d8813af5b7cb780b7e164",
+      sha256 = "d056573fc7c2add69c62cc23a9be5d5625fcaf1bacb095dd813191a51de71696",
 )
 
 # ********** com_github_google_benchmark *****************
     http_archive(
       name = "com_github_google_benchmark",
-      urls = ["https://github.com/google/benchmark/archive/140db8a22901f666577b7516febf184e9764f4e2.zip"],  # 2019-07-30T06:03:15Z
-      strip_prefix = "benchmark-140db8a22901f666577b7516febf184e9764f4e2",
-      sha256 = "a19309f9fc690d7f169778a22cab804bd97ac65990e69127bbde256d474a872d",
+      urls = ["https://github.com/google/benchmark/archive/140fc22ab22c770b44228ec6b38c745fc610269d.zip"],  # 2019-08-06T10:36:36Z
+      strip_prefix = "benchmark-140fc22ab22c770b44228ec6b38c745fc610269d",
+      sha256 = "02d5440e0dcd2f63b2d30a92ab6fc20bbbcabdeee1fedd76b55daeaa6b9b771a",
 )
 
     # zlib pinned to 1.2.11

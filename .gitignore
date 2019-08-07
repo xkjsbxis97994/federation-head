@@ -1,0 +1,6 @@
+bazel-bin
+bazel-genfiles
+bazel-googletest
+bazel-out
+bazel-testlogs
+bazel-test
