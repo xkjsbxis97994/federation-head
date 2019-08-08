@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: PWD
-          command:  pwd
+          command: pwd
           command: ls -l
 
 
