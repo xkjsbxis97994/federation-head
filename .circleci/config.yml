@@ -26,10 +26,13 @@ jobs:
             git checkout -b $BRANCH_NAME
 
             rm federation_deps.bzl
-            ./head_sync.py >> federation_deps.bzl
+            date >> federation_deps.bzl
             git add federation_deps.bzl
             git commit -m $BRANCH_NAME
             git status
+            hub pull-request -p <<MSG
+            $BRANCH_NAME
+            MSG
 
 
 
