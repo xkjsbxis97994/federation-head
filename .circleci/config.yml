@@ -12,5 +12,11 @@ jobs:
           command: echo Hello, world.
 
       - run:
+          name: PWD
+          command:  pwd
+          command: ls -l
+
+
+      - run:
           name: Print the Current Time
           command: date
