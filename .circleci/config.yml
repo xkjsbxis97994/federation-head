@@ -16,7 +16,7 @@ jobs:
             rm federation_deps.bzl
             ./head_sync.py >> federation_deps.bzl
       - create_pr
-        run: git status
-        run: git add federation_deps.bzl
-        run: git commit -m "Update"
+        run:  git status
+        run:  git add federation_deps.bzl
+        run:  git commit -m "Update"
 
