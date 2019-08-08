@@ -8,14 +8,8 @@ jobs:
       - checkout
 
       - run:
-          name: Greeting
-          command: echo Hello, world.
-          name: PWD
-          command: pwd
-          name: ls
-          command: ls -l
-
-
-      - run:
-          name: Print the Current Time
-          command: date
+          name: step1
+          command: |
+            pwd
+            ls -l
+            date
