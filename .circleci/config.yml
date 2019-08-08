@@ -15,6 +15,7 @@ jobs:
             sudo pip install urllib3
             rm federation_deps.bzl
             ./head_sync.py >> federation_deps.bzl
+            git config --global user.email "you@example.com"
             git status
             git add federation_deps.bzl
             git commit -m "Update"
