@@ -13,5 +13,5 @@ jobs:
             pwd
             ls -l
             date
-            pip install urllib3
+            sudo pip install urllib3
             ./head_sync.py
