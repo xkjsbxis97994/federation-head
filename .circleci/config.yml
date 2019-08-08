@@ -10,10 +10,9 @@ jobs:
       - run:
           name: Greeting
           command: echo Hello, world.
-
-      - run:
           name: PWD
           command: pwd
+          name: ls
           command: ls -l
 
 
