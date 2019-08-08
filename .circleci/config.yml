@@ -16,6 +16,7 @@ jobs:
             rm federation_deps.bzl
             ./head_sync.py >> federation_deps.bzl
             git config --global user.name "absl-federation-github"
+            git config --global user.email "absl-federation-github@google.com"
             git status
             git add federation_deps.bzl
             git commit -m "Update"
