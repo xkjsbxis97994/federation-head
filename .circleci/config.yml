@@ -28,9 +28,9 @@ jobs:
             rm federation_deps.bzl
             ./head_sync.py >> federation_deps.bzl
             git add federation_deps.bzl
-
-            git status
             git commit -m $BRANCH_NAME
+            git status
+
 
 
 
