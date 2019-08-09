@@ -9,7 +9,7 @@ jobs:
       - run:
           name: step1
           command: |
-            set -x
+            ls -l
             echo "*********** install hub ********************************"
             wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
             tar zxf hub-linux-amd64-2.12.3.tgz
