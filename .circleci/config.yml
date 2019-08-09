@@ -25,11 +25,7 @@ jobs:
             rm federation_deps.bzl
             ls -l 
             time >> federation_deps.bzl
-            echo "**************************************************"
-            ls -l
-            cat federation_deps.bzl
             git status
-            git diff federation_deps.bzl
             git add federation_deps.bzl
             git commit -m "'$BRANCH_NAME'"
             echo "************ git status **************************"
