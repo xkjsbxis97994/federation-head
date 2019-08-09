@@ -31,7 +31,7 @@ jobs:
             echo "************ git status **************************"
             git status
             echo "************* making pr ***************************"
-            hub pull-request -p <<MSG
+            ./hub-linux-amd64-2.12.3/bin/hub pull-request -p <<MSG
             $BRANCH_NAME
             MSG
             echo "**************************************************"
