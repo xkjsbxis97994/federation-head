@@ -14,8 +14,7 @@ jobs:
             date
             echo "*********** install hub ********************************"
             wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
-            tar zxvf hub-linux-amd64-2.12.3.tgz
-            ./hub-linux-amd64-2.12.3/bin/hub
+            tar zxf hub-linux-amd64-2.12.3.tgz
             echo "************ install hub done! **************************"
 
             sudo pip install urllib3
