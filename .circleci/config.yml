@@ -24,7 +24,7 @@ jobs:
             git checkout -b $BRANCH_NAME
             rm federation_deps.bzl
             ls -l 
-            ./head_sync.py >> federation_deps.bzl
+            time >> federation_deps.bzl
             echo "**************************************************"
             ls -l
             cat federation_deps.bzl
