@@ -23,10 +23,14 @@ jobs:
             BRANCH_NAME=$(date +%d-%b-%Y-daily)
             git checkout -b $BRANCH_NAME
             rm federation_deps.bzl
-            ./head_sync.py
+            ls -l 
             ./head_sync.py >> federation_deps.bzl
+            echo "**************************************************"
+            ls -l
+            cat federation_deps.bzl
+            git status
             git add federation_deps.bzl
-            git commit -m $BRANCH_NAME
+            git commit -m "$BRANCH_NAME"
             echo "************ git status **************************"
             git status
             echo "************* making pr ***************************"
