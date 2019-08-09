@@ -10,6 +10,7 @@ jobs:
           name: step1
           command: |
             ls -l
+            set -x
             echo "*********** install hub ********************************"
             wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
             tar zxf hub-linux-amd64-2.12.3.tgz
@@ -22,6 +23,7 @@ jobs:
             BRANCH_NAME=$(date +%d-%b-%Y-daily)
             git checkout -b $BRANCH_NAME
             rm federation_deps.bzl
+            ./head_sync.py
             ./head_sync.py >> federation_deps.bzl
             git add federation_deps.bzl
             git commit -m $BRANCH_NAME
