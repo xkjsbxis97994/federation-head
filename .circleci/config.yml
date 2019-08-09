@@ -29,8 +29,9 @@ jobs:
             ls -l
             cat federation_deps.bzl
             git status
+            git diff federation_deps.bzl
             git add federation_deps.bzl
-            git commit -m "$BRANCH_NAME"
+            git commit -m "'$BRANCH_NAME'"
             echo "************ git status **************************"
             git status
             echo "************* making pr ***************************"
