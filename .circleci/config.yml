@@ -27,7 +27,7 @@ jobs:
             git checkout -b $BRANCH_NAME
             rm federation_deps.bzl
             ls -l
-            time >> federation_deps.bzl
+            ./head_sync.py >> federation_deps.bzl
             git status
             git add federation_deps.bzl
             git commit -m "'$BRANCH_NAME'"
