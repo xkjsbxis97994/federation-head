@@ -14,10 +14,10 @@ jobs:
           command: |
             ls -l
             set -x
-            echo "*********** install hub ********************************"
-            wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
-            tar zxf hub-linux-amd64-2.12.3.tgz
-            echo "************ install hub done! **************************"
+            #echo "*********** install hub ********************************"
+            #wget https://github.com/github/hub/releases/download/v2.12.3/hub-linux-amd64-2.12.3.tgz
+            #tar zxf hub-linux-amd64-2.12.3.tgz
+            #echo "************ install hub done! **************************"
             sudo pip install urllib3
             echo "************ install urllib3 done! **************************"
             git config --global user.name "absl-federation-github"
@@ -34,9 +34,7 @@ jobs:
             echo "************ git status **************************"
             git status
             echo "************* making pr ***************************"
-            ./hub-linux-amd64-2.12.3/bin/hub pull-request -p <<MSG
-            $BRANCH_NAME
-            MSG
+            git push --set-upstream origin $BRANCH_NAME
             echo "**************************************************"
 
 
