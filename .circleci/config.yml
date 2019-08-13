@@ -20,8 +20,8 @@ jobs:
             echo "************ install hub done! **************************"
             sudo pip install urllib3
             echo "************ install urllib3 done! **************************"
-            #git config --global user.name "absl-federation-github"
-            #git config --global user.email "absl-federation-github@google.com"
+            git config --global user.name "absl-federation-github"
+            git config --global user.email "absl-federation-github@google.com"
             #echo "************ git config done! **************************"
             BRANCH_NAME=$(date +%d-%b-%Y-daily)
             git checkout -b $BRANCH_NAME
