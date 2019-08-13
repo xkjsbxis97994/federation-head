@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/abseil/federation-head.svg?branch=master)](https://travis-ci.org/abseil/federation-head.svg?branch=master)
+[![Build Status](https://travis-ci.org/abseil/federation-head.svg?branch=master)](https://travis-ci.org/abseil/federation-head)
 
 The Federation is a group of open source projects that have agreed to play by some common rules.  
 
