@@ -35,6 +35,7 @@ jobs:
             git status
             echo "************* making pr ***************************"
             git push --set-upstream origin $BRANCH_NAME
+            git request-pull master:$BRANCH_NAME
             echo "**************************************************"
 
 
