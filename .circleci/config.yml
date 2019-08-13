@@ -6,7 +6,7 @@ jobs:
 
     steps:
       - checkout
-    - add_ssh_keys:
+      - add_ssh_keys:
           fingerprints:
             - "7b:4a:9b:c5:80:53:6d:bd:ab:4f:a8:f5:13:3e:bb:c3"
       - run:
@@ -26,7 +26,7 @@ jobs:
             BRANCH_NAME=$(date +%d-%b-%Y-daily)
             git checkout -b $BRANCH_NAME
             rm federation_deps.bzl
-            ls -l 
+            ls -l
             time >> federation_deps.bzl
             git status
             git add federation_deps.bzl
