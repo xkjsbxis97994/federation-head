@@ -3,20 +3,32 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 def federation_deps():
+    http_archive(
+        name = "rules_cc",
+        strip_prefix = "rules_cc-master",
+        urls = ["https://github.com/bazelbuild/rules_cc/archive/master.zip"],
+    )
+
+    http_archive(
+        name = "rules_python",
+        strip_prefix = "rules_python-master",
+        urls = ["https://github.com/bazelbuild/rules_python/archive/master.zip"],
+    )
+
 # ********** com_google_absl *****************
     http_archive(
       name = "com_google_absl",
-      urls = ["https://github.com/abseil/abseil-cpp/archive/d9aa92d7fb324314f9df487ac23d32a25650b742.zip"],  # 2019-08-13T18:21:13Z
-      strip_prefix = "abseil-cpp-d9aa92d7fb324314f9df487ac23d32a25650b742",
-      sha256 = "caf4c323eb6211397df96dd5ff96e46c7e5dd77c74d3daed2181f87868159eca",
+      urls = ["https://github.com/abseil/abseil-cpp/archive/0e7afdcbd24c7e5b7cab4e0217d8886f1525b520.zip"],  # 2019-08-19T19:34:07Z
+      strip_prefix = "abseil-cpp-0e7afdcbd24c7e5b7cab4e0217d8886f1525b520",
+      sha256 = "5dcf7aa1611d4627c06a53caf997fa5d32f69e81ede3a98199d56da4dd0d18b2",
 )
 
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/90a443f9c2437ca8a682a1ac625eba64e1d74a8a.zip"],  # 2019-08-07T15:57:30Z
-      strip_prefix = "googletest-90a443f9c2437ca8a682a1ac625eba64e1d74a8a",
-      sha256 = "6fb9a49ad77656c860cfdafbb3148a91f076a3a8bda9c6d8809075c832549dd4",
+      urls = ["https://github.com/google/googletest/archive/c9ccac7cb7345901884aabf5d1a786cfa6e2f397.zip"],  # 2019-08-19T20:17:03Z
+      strip_prefix = "googletest-c9ccac7cb7345901884aabf5d1a786cfa6e2f397",
+      sha256 = "8bb781f17c7a463bba95f95b29a4df4645b053e3a8d95ebcc017800664834cbb",
 )
 
 # ********** com_github_google_benchmark *****************
