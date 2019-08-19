@@ -61,6 +61,18 @@ print("load(\"@bazel_tools//tools/build_defs/repo:http.bzl\", \"http_archive\")"
 print("")
 print ("def federation_deps():")
 
+print("    http_archive(")
+print("        name = \"rules_cc\",")
+print("        strip_prefix = \"rules_cc-master\",")
+print("        urls = [\"https://github.com/bazelbuild/rules_cc/archive/master.zip\"],")
+print("    )\"")
+
+print("    http_archive(")
+print("        name = \"rules_python\",")
+print("        strip_prefix = \"rules_python-master\",")
+print("        urls = [\"https://github.com/bazelbuild/rules_python/archive/master.zip\"],")
+print("    )")
+
 for project in PROJECTS:
   retVal=project.workspace_rule()
   print ("# ********** " +project.name + " *****************")
