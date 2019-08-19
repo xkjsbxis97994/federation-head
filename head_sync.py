@@ -65,13 +65,17 @@ print("    http_archive(")
 print("        name = \"rules_cc\",")
 print("        strip_prefix = \"rules_cc-master\",")
 print("        urls = [\"https://github.com/bazelbuild/rules_cc/archive/master.zip\"],")
-print("    )\"")
+print("    )")
+
+print("")
 
 print("    http_archive(")
 print("        name = \"rules_python\",")
 print("        strip_prefix = \"rules_python-master\",")
 print("        urls = [\"https://github.com/bazelbuild/rules_python/archive/master.zip\"],")
 print("    )")
+
+print("")
 
 for project in PROJECTS:
   retVal=project.workspace_rule()

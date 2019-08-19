@@ -7,18 +7,20 @@ def federation_deps():
         name = "rules_cc",
         strip_prefix = "rules_cc-master",
         urls = ["https://github.com/bazelbuild/rules_cc/archive/master.zip"],
-    )"
+    )
+
     http_archive(
         name = "rules_python",
         strip_prefix = "rules_python-master",
         urls = ["https://github.com/bazelbuild/rules_python/archive/master.zip"],
     )
+
 # ********** com_google_absl *****************
     http_archive(
       name = "com_google_absl",
-      urls = ["https://github.com/abseil/abseil-cpp/archive/9a41ffdd3a0ccbcdd29c4e3886b28e06f2cd9c66.zip"],  # 2019-08-16T14:44:01Z
-      strip_prefix = "abseil-cpp-9a41ffdd3a0ccbcdd29c4e3886b28e06f2cd9c66",
-      sha256 = "e465e100113e67e309237e5d952c773f4b1d4fcde51a45ba0ebb7cc0ac253741",
+      urls = ["https://github.com/abseil/abseil-cpp/archive/0e7afdcbd24c7e5b7cab4e0217d8886f1525b520.zip"],  # 2019-08-19T19:34:07Z
+      strip_prefix = "abseil-cpp-0e7afdcbd24c7e5b7cab4e0217d8886f1525b520",
+      sha256 = "5dcf7aa1611d4627c06a53caf997fa5d32f69e81ede3a98199d56da4dd0d18b2",
 )
 
 # ********** com_google_googletest *****************
