@@ -18,17 +18,17 @@ def federation_deps():
 # ********** com_google_absl *****************
     http_archive(
       name = "com_google_absl",
-      urls = ["https://github.com/abseil/abseil-cpp/archive/262d74ba81b1fc4d71f459555cde8ecb39786d68.zip"],  # 2019-08-21T20:54:41Z
-      strip_prefix = "abseil-cpp-262d74ba81b1fc4d71f459555cde8ecb39786d68",
-      sha256 = "f29dd8e0eb616635f5ddfed28da16c2594776070e3d11ac7c0cdf1cbfa130666",
+      urls = ["https://github.com/abseil/abseil-cpp/archive/97c1664b4bbab5f78fac2b151ab02656268fb34b.zip"],  # 2019-09-09T16:41:04Z
+      strip_prefix = "abseil-cpp-97c1664b4bbab5f78fac2b151ab02656268fb34b",
+      sha256 = "bc1cb4d8d10f83ef48bc09909a3e6e92629132c62c1634e3c9047fa95400bb4d",
 )
 
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/fb49e6c164490a227bbb7cf5223b846c836a0305.zip"],  # 2019-08-21T21:13:34Z
-      strip_prefix = "googletest-fb49e6c164490a227bbb7cf5223b846c836a0305",
-      sha256 = "b97785dc9ff7a4b1fa308e8a685b16da8ca368d422d869b6190237b313bca04e",
+      urls = ["https://github.com/google/googletest/archive/3f05f651ae3621db58468153e32016bc1397800b.zip"],  # 2019-09-06T12:00:18Z
+      strip_prefix = "googletest-3f05f651ae3621db58468153e32016bc1397800b",
+      sha256 = "f5c07b1c6c57cd701558ba35207487773965255d03fe3e026b91dca6f3b936a6",
 )
 
 # ********** com_github_google_benchmark *****************
