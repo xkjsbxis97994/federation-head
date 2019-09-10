@@ -26,9 +26,9 @@ def federation_deps():
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/3f05f651ae3621db58468153e32016bc1397800b.zip"],  # 2019-09-06T12:00:18Z
-      strip_prefix = "googletest-3f05f651ae3621db58468153e32016bc1397800b",
-      sha256 = "f5c07b1c6c57cd701558ba35207487773965255d03fe3e026b91dca6f3b936a6",
+      urls = ["https://github.com/google/googletest/archive/3a45039862471cc2785e92bd19bd146c70344986.zip"],  # 2019-09-09T17:40:40Z
+      strip_prefix = "googletest-3a45039862471cc2785e92bd19bd146c70344986",
+      sha256 = "4069e141fafd8139273b6f6470562f111192cc5c23da94d021a990145b3aebda",
 )
 
 # ********** com_github_google_benchmark *****************
