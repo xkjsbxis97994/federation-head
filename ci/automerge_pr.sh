@@ -18,7 +18,9 @@
 # using a Docker image on Linux. You must have Docker installed to use this
 # script.
 
-set -eox pipefail
+#NOTE Do not add "-x"
+set -eo pipefail
+
 
 BUILD_ROOT="$(realpath $(dirname ${0})/..)"
 
@@ -81,7 +83,6 @@ done
 # echo "************************ ABSEIL TESTS ************************"
 # docker run  --volume="${BUILD_ROOT}:/test:ro"  --workdir=/test/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_absl//absl/...:all --test_output=errors --test_tag_filters=-benchmark
 
-
 generate_post_data()
 {
 cat <<EOF
@@ -90,14 +91,14 @@ EOF
 }
 
 # Check if there is an env. variable to NOT auto merge.
-if [ -z "$DO_NOT_AUTO_MERGE" ]; then
+if [ -z "${AUTO_MERGE}" ]; then
+  echo "AUTO_MERGE is not set: : ${AUTO_MERGE}, Skipping PR merge..."
+else
   # The following variables will be defined when running on Kokoro
   # KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
   # KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
-  echo "DO_NOT_AUTO_MERGE is not set, Proceeding with PR merge..."
+  echo "AUTO_MERGE is set: ${AUTO_MERGE}, Proceeding with PR merge..."
   GITHUB_ACCESS_TOKEN="$(cat "$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token)"
   curl -H "Authorization: token ${GITHUB_ACCESS_URL}" -X PUT --data "$(generate_post_data)" https://api.github.com/repos/abseil/federation-head/pulls/"${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}"/merge
-else
-  echo "DO_NOT_AUTO_MERGE is set to ${DO_NOT_AUTO_MERGE}, Skipping PR merge..."
 fi
 
