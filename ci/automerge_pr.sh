@@ -18,9 +18,9 @@
 # using a Docker image on Linux. You must have Docker installed to use this
 # script.
 
-set -euox pipefail
+set -eox pipefail
 
-BUILD_ROOT="$(realpath ".")"
+BUILD_ROOT="$(realpath $(dirname ${0})/..)"
 
 readonly GCC_DOCKER="gcr.io/google.com/absl-177019/linux_gcc-latest:20190703"
 readonly CLANG_DOCKER="gcr.io/google.com/absl-177019/linux_clang-latest:20190813"
@@ -69,12 +69,10 @@ for std in ${STD}; do
 done
 
 
-
-
 # echo "************************ FEDERATION SMOKE TESTS ************************"
 # docker run  --volume="${BUILD_ROOT}:/repo_root:ro"  --workdir=/repo_root/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test ...
 
-# echo "************************ GOOGLETST TESTS ************************"
+# echo "************************ GOOGLETEST TESTS ************************"
 # docker run  --volume="${BUILD_ROOT}:/repo_root:ro"  --workdir=/repo_root/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_googletest//googletest/...:all --define absl=1
 
 # echo "************************ BENCHMARK TESTS ************************"
@@ -84,18 +82,22 @@ done
 # docker run  --volume="${BUILD_ROOT}:/test:ro"  --workdir=/test/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_absl//absl/...:all --test_output=errors --test_tag_filters=-benchmark
 
 
-
-# Merge this PR if the tests above PASS
-# The following variables will be defined when running on Kokoro
-# KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
-# KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
-
-GITHUB_ACCESS_URL="$(cat "$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token)"
-
 generate_post_data()
 {
 cat <<EOF
-{"commit_title":"Test Please ignore - Merging PR ${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}", "commit_message": "Test, Please Ignore - Virtual Head Update","sha":"$KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro", "merge_method":"merge"}
+{"commit_title":"Auto-Merge of PR ${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}", "commit_message": "Virtual Head Update","sha":"$KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro", "merge_method":"merge"}
 EOF
 }
-curl --user "${GITHUB_ACCESS_URL}" -X PUT --data "$(generate_post_data)" https://api.github.com/repos/abseil/federation-head/pulls/"${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}"/merge
+
+# Check if there is an env. variable to NOT auto merge.
+if [ -z "$DO_NOT_AUTO_MERGE" ]; then
+  # The following variables will be defined when running on Kokoro
+  # KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
+  # KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
+  echo "DO_NOT_AUTO_MERGE is not set, Proceeding with PR merge..."
+  GITHUB_ACCESS_TOKEN="$(cat "$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token)"
+  curl -H "Authorization: token ${GITHUB_ACCESS_URL}" -X PUT --data "$(generate_post_data)" https://api.github.com/repos/abseil/federation-head/pulls/"${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}"/merge
+else
+  echo "DO_NOT_AUTO_MERGE is set to ${DO_NOT_AUTO_MERGE}, Skipping PR merge..."
+fi
+
