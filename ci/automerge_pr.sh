@@ -28,8 +28,7 @@ readonly GCC_DOCKER="gcr.io/google.com/absl-177019/linux_gcc-latest:20190703"
 readonly CLANG_DOCKER="gcr.io/google.com/absl-177019/linux_clang-latest:20190813"
 
 if [ -z ${STD:-} ]; then
-  #STD="c++11 c++14 c++17"
-  STD=""
+  STD="c++11 c++14 c++17"
 fi
 
 echo "************************ GCC FEDERATION SMOKE TESTS ************************"
