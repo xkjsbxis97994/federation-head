@@ -28,7 +28,8 @@ readonly GCC_DOCKER="gcr.io/google.com/absl-177019/linux_gcc-latest:20190703"
 readonly CLANG_DOCKER="gcr.io/google.com/absl-177019/linux_clang-latest:20190813"
 
 if [ -z ${STD:-} ]; then
-  STD="c++11 c++14 c++17"
+  #STD="c++11 c++14 c++17"
+  STD=""
 fi
 
 echo "************************ GCC FEDERATION SMOKE TESTS ************************"
@@ -83,7 +84,6 @@ done
 # echo "************************ ABSEIL TESTS ************************"
 # docker run  --volume="${BUILD_ROOT}:/test:ro"  --workdir=/test/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_absl//absl/...:all --test_output=errors --test_tag_filters=-benchmark
 
-
 generate_post_data()
 {
 cat <<EOF
@@ -91,14 +91,29 @@ cat <<EOF
 EOF
 }
 
-if [ ${AUTOMERGE:-0} -ne 0 ]; then
-  # The following variables will be defined when running on Kokoro
-  # KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
-  # KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
-  echo "AUTO_MERGE is set: ${AUTO_MERGE}, Proceeding with PR merge..."
-  cp "$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token_netrcfile ~/.netrc
-  chmod 600 ~/.netrc
-  curl --netrc -X POST --data "$(generate_post_data)" https://api.github.com/repos/abseil/federation-head/pulls
+# The following variables will be defined when running on Kokoro
+# KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
+# KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
+# KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
+if [ ${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro:-0} -eq 0 ]; then
+  KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro=57
+fi
+if [ ${KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro:-0} -eq 0 ]; then
+  KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro=115a97111f938cce161e3a9f028b910ccc0524f6
+fi
+if [ ${KOKORO_KEYSTORE_DIR:-0} -eq 0 ]; then
+  KOKORO_KEYSTORE_DIR="."
+  NETRC_FILE="${KOKORO_KEYSTORE_DIR}"/.netrc
 else
-  echo "AUTO_MERGE is not set: : ${AUTO_MERGE}, Skipping PR merge..."
+  NETRC_FILE="$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token_netrcfile
+fi
+
+
+if [ ${AUTOMERGE:-0} -ne 0 ]; then
+  echo "AUTO_MERGE is set: ${AUTOMERGE}, Proceeding with PR merge..."
+  cp "${NETRC_FILE}" ~/.netrc
+  chmod 600 ~/.netrc
+  curl --netrc -X PUT --data "$(generate_post_data)" https://api.github.com/repos/abseil/federation-head/pulls/"${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro}"/merge
+else
+  echo "AUTOMERGE is not set, Skipping PR merge..."
 fi
