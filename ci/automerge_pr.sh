@@ -32,7 +32,8 @@ if [ -z ${STD:-} ]; then
 fi
 
 echo "************************ GCC FEDERATION SMOKE TESTS *******************"
-
+# Runs with --copt=-Werror so not combined with abseil,googletest, benchmark
+# tests below
 for std in ${STD}; do
   echo "*** Testing for: ${std} ***"
   time docker run  \
@@ -52,7 +53,8 @@ done
 
 
 echo "************************ CLANG FEDERATION SMOKE TESTS *****************"
-
+# Runs with --copt=-Werror so not combined with abseil,googletest, benchmark
+# tests below
 for std in ${STD}; do
   echo "*** Testing for: ${std} ***"
   time docker run  \
@@ -72,8 +74,7 @@ for std in ${STD}; do
 done
 
 
-echo "************************ GCC FEDERATION GOOGLETEST TESTS **************"
-
+echo "****** GCC FEDERATION TESTS ABSEIL, GOOGLETEST, BENCHMARK  **************"
 for std in ${STD}; do
   echo "*** Testing for: ${std} ***"
   time docker run  \
@@ -84,16 +85,18 @@ for std in ${STD}; do
   -e CC="/usr/local/bin/gcc" \
   -e BAZEL_CXXOPTS="-std=${std}" \
   "${GCC_DOCKER}" \
-  /usr/local/bin/bazel test @com_google_googletest//googletest/...:all \
+  /usr/local/bin/bazel test \
+  @com_google_absl//absl/...:all \
+  @com_google_googletest//googletest/...:all \
+  @com_github_google_benchmark//test/...:all \
     --define absl=1 \
+    --test_tag_filters=-benchmark \
     --keep_going \
     --show_timestamps \
     --test_output=errors
 done
 
-
-echo "************************ CLANG FEDERATION GOOGLETEST TESTS ************"
-
+echo "****** CLANG FEDERATION TESTS ABSEIL, GOOGLETEST, BENCHMARK  ************"
 for std in ${STD}; do
   echo "*** Testing for: ${std} ***"
   time docker run  \
@@ -105,64 +108,11 @@ for std in ${STD}; do
   -e BAZEL_COMPILER="llvm" \
   -e BAZEL_CXXOPTS="-std=${std}" \
   "${CLANG_DOCKER}" \
-  /usr/local/bin/bazel test @com_google_googletest//googletest/...:all \
+  /usr/local/bin/bazel test \
+  @com_google_absl//absl/...:all \
+  @com_google_googletest//googletest/...:all \
+  @com_github_google_benchmark//test/...:all \
     --define absl=1 \
-    --keep_going \
-    --show_timestamps \
-    --test_output=errors
-done
-
-
-echo "************************ GCC FEDERATION BENCHMARK TESTS ***************"
-
-for std in ${STD}; do
-  echo "*** Testing for: ${std} ***"
-  time docker run  \
-  --volume="${BUILD_ROOT}:/repo_root:ro"  \
-  --workdir=/repo_root/test \
-  --cap-add=SYS_PTRACE \
-  --rm \
-  -e CC="/usr/local/bin/gcc" \
-  -e BAZEL_CXXOPTS="-std=${std}" \
-  "${GCC_DOCKER}" \
-  /usr/local/bin/bazel test @com_github_google_benchmark//test/...:all \
-    --keep_going \
-    --show_timestamps \
-    --test_output=errors
-done
-
-echo "************************ CLANG FEDERATION BENCHMARK TESTS *************"
-
-for std in ${STD}; do
-  echo "*** Testing for: ${std} ***"
-  time docker run  \
-  --volume="${BUILD_ROOT}:/repo_root:ro"  \
-  --workdir=/repo_root/test \
-  --cap-add=SYS_PTRACE \
-  --rm \
-  -e CC="/opt/llvm/clang/bin/clang" \
-  -e BAZEL_COMPILER="llvm" \
-  -e BAZEL_CXXOPTS="-std=${std}" \
-  "${CLANG_DOCKER}" \
-  /usr/local/bin/bazel test @com_github_google_benchmark//test/...:all \
-    --keep_going \
-    --show_timestamps \
-    --test_output=errors
-done
-
-echo "************************ GCC FEDERATION ABSEIL TESTS ********************"
-
-for std in ${STD}; do
-  echo "*** Testing for: ${std} ***"
-  time docker run  \
-  --volume="${BUILD_ROOT}:/repo_root:ro"  \
-  --workdir=/repo_root/test \
-  --cap-add=SYS_PTRACE \
-  --rm \
-  -e CC="/usr/local/bin/gcc" \
-  -e BAZEL_CXXOPTS="-std=${std}" \
-  "${GCC_DOCKER}" \
-  /usr/local/bin/bazel test @com_google_absl//absl/...:all \
     --test_tag_filters=-benchmark \
     --keep_going \
     --show_timestamps \
