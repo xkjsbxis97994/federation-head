@@ -14,27 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script that can be invoked to test federation head in a hermetic environment
-# using a Docker image on Linux. You must have Docker installed to use this
-# script.
+# This script that can be invoked to test federation head in a hermetic
+# environment using a Docker image on Linux. You must have Docker installed
+# to use this script.
 
-#NOTE Do not add "-x"
 set -euox pipefail
-
 
 BUILD_ROOT="$(realpath $(dirname ${0})/..)"
 
 readonly GCC_DOCKER="gcr.io/google.com/absl-177019/linux_gcc-latest:20190703"
 readonly CLANG_DOCKER="gcr.io/google.com/absl-177019/linux_clang-latest:20190813"
 
+################################### START TESTS ################################
+
 if [ -z ${STD:-} ]; then
   STD="c++11 c++14 c++17"
 fi
 
-echo "************************ GCC FEDERATION SMOKE TESTS ************************"
+echo "************************ GCC FEDERATION SMOKE TESTS *******************"
 
 for std in ${STD}; do
-  echo "*** Running: ${std} ***"
+  echo "*** Testing for: ${std} ***"
   time docker run  \
   --volume="${BUILD_ROOT}:/repo_root:ro"  \
   --workdir=/repo_root/test \
@@ -51,10 +51,11 @@ for std in ${STD}; do
 done
 
 
-echo "************************ CLANG FEDERATION SMOKE TESTS ************************"
+echo "************************ CLANG FEDERATION SMOKE TESTS *****************"
 
 for std in ${STD}; do
-  docker run  \
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
   --volume="${BUILD_ROOT}:/repo_root:ro"  \
   --workdir=/repo_root/test \
   --cap-add=SYS_PTRACE \
@@ -71,17 +72,105 @@ for std in ${STD}; do
 done
 
 
-# echo "************************ FEDERATION SMOKE TESTS ************************"
-# docker run  --volume="${BUILD_ROOT}:/repo_root:ro"  --workdir=/repo_root/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test ...
+echo "************************ GCC FEDERATION GOOGLETEST TESTS **************"
 
-# echo "************************ GOOGLETEST TESTS ************************"
-# docker run  --volume="${BUILD_ROOT}:/repo_root:ro"  --workdir=/repo_root/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_googletest//googletest/...:all --define absl=1
+for std in ${STD}; do
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
+  --volume="${BUILD_ROOT}:/repo_root:ro"  \
+  --workdir=/repo_root/test \
+  --cap-add=SYS_PTRACE \
+  --rm \
+  -e CC="/usr/local/bin/gcc" \
+  -e BAZEL_CXXOPTS="-std=${std}" \
+  "${GCC_DOCKER}" \
+  /usr/local/bin/bazel test @com_google_googletest//googletest/...:all \
+    --define absl=1 \
+    --keep_going \
+    --show_timestamps \
+    --test_output=errors
+done
 
-# echo "************************ BENCHMARK TESTS ************************"
-# docker run  --volume="${BUILD_ROOT}:/repo_root:ro"  --workdir=/repo_root/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_github_google_benchmark//test/...:all
 
-# echo "************************ ABSEIL TESTS ************************"
-# docker run  --volume="${BUILD_ROOT}:/test:ro"  --workdir=/test/test "${DOCKER_CONTAINER}" /usr/local/bin/bazel test @com_google_absl//absl/...:all --test_output=errors --test_tag_filters=-benchmark
+echo "************************ CLANG FEDERATION GOOGLETEST TESTS ************"
+
+for std in ${STD}; do
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
+  --volume="${BUILD_ROOT}:/repo_root:ro"  \
+  --workdir=/repo_root/test \
+  --cap-add=SYS_PTRACE \
+  --rm \
+  -e CC="/opt/llvm/clang/bin/clang" \
+  -e BAZEL_COMPILER="llvm" \
+  -e BAZEL_CXXOPTS="-std=${std}" \
+  "${CLANG_DOCKER}" \
+  /usr/local/bin/bazel test @com_google_googletest//googletest/...:all \
+    --define absl=1 \
+    --keep_going \
+    --show_timestamps \
+    --test_output=errors
+done
+
+
+echo "************************ GCC FEDERATION BENCHMARK TESTS ***************"
+
+for std in ${STD}; do
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
+  --volume="${BUILD_ROOT}:/repo_root:ro"  \
+  --workdir=/repo_root/test \
+  --cap-add=SYS_PTRACE \
+  --rm \
+  -e CC="/usr/local/bin/gcc" \
+  -e BAZEL_CXXOPTS="-std=${std}" \
+  "${GCC_DOCKER}" \
+  /usr/local/bin/bazel test @com_github_google_benchmark//test/...:all \
+    --keep_going \
+    --show_timestamps \
+    --test_output=errors
+done
+
+echo "************************ CLANG FEDERATION BENCHMARK TESTS *************"
+
+for std in ${STD}; do
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
+  --volume="${BUILD_ROOT}:/repo_root:ro"  \
+  --workdir=/repo_root/test \
+  --cap-add=SYS_PTRACE \
+  --rm \
+  -e CC="/opt/llvm/clang/bin/clang" \
+  -e BAZEL_COMPILER="llvm" \
+  -e BAZEL_CXXOPTS="-std=${std}" \
+  "${CLANG_DOCKER}" \
+  /usr/local/bin/bazel test @com_github_google_benchmark//test/...:all \
+    --keep_going \
+    --show_timestamps \
+    --test_output=errors
+done
+
+echo "************************ GCC FEDERATION ABSEIL TESTS ********************"
+
+for std in ${STD}; do
+  echo "*** Testing for: ${std} ***"
+  time docker run  \
+  --volume="${BUILD_ROOT}:/repo_root:ro"  \
+  --workdir=/repo_root/test \
+  --cap-add=SYS_PTRACE \
+  --rm \
+  -e CC="/usr/local/bin/gcc" \
+  -e BAZEL_CXXOPTS="-std=${std}" \
+  "${GCC_DOCKER}" \
+  /usr/local/bin/bazel test @com_google_absl//absl/...:all \
+    --test_tag_filters=-benchmark \
+    --keep_going \
+    --show_timestamps \
+    --test_output=errors
+done
+
+
+################################### END TESTS ##################################
 
 generate_post_data()
 {
@@ -93,21 +182,13 @@ EOF
 # The following variables will be defined when running on Kokoro
 # KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
 # KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro
-# KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro
-if [ ${KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro:-0} -eq 0 ]; then
-  KOKORO_GITHUB_PULL_REQUEST_NUMBER_kokoro=57
-fi
-if [ ${KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro:-0} -eq 0 ]; then
-  KOKORO_GITHUB_PULL_REQUEST_COMMIT_kokoro=115a97111f938cce161e3a9f028b910ccc0524f6
-fi
-if [ ${KOKORO_KEYSTORE_DIR:-0} -eq 0 ]; then
-  KOKORO_KEYSTORE_DIR="."
-  NETRC_FILE="${KOKORO_KEYSTORE_DIR}"/.netrc
-else
-  NETRC_FILE="$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token_netrcfile
-fi
+# KOKORO_KEYSTORE_DIR
+# For testing outside Kokoro set them in your test environment
 
+NETRC_FILE="$KOKORO_KEYSTORE_DIR"/73103_absl-federation-github-access_token_netrcfile
 
+# AUTOMERGE variable will be set on Kokoro
+# For testing outside Kokoro set it in your test environment
 if [ ${AUTOMERGE:-0} -ne 0 ]; then
   echo "AUTO_MERGE is set: ${AUTOMERGE}, Proceeding with PR merge..."
   cp "${NETRC_FILE}" ~/.netrc
