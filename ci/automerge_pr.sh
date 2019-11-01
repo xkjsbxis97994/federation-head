@@ -161,7 +161,7 @@ if [ ${AUTOMERGE:-0} -ne 0 ]; then
 
   GITHUB_API_STATUS=$(curl --netrc-file "${NETRC_FILE}" -s -o response1.txt -i -w '%{http_code}' -X POST --data "$(generate_post_data_create_github_release)" https://api.github.com/repos/abseil/federation-head/releases)
 
-  if [ ${GITHUB_API_STATUS} -ne 200 ]; then
+  if [ ${GITHUB_API_STATUS} -ne 201 ]; then
     echo "GitHub Merge was Successful but making a GitHub Release failed. See GitHub response below:"
     cat response1.txt
     echo "Terminating with -1"
