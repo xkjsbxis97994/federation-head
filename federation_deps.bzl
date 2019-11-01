@@ -26,17 +26,17 @@ def federation_deps():
 # ********** com_google_absl *****************
     http_archive(
       name = "com_google_absl",
-      urls = ["https://github.com/abseil/abseil-cpp/archive/83880e3d8ce512461c290782b541a623e50e39ef.zip","https://github.com/abseil/abseil-cpp/archive/83880e3d8ce512461c290782b541a623e50e39ef.zip"],  # 2019-10-30T19:04:55Z use the same URL twice to trick bazel into re-trying if connection fails
-      strip_prefix = "abseil-cpp-83880e3d8ce512461c290782b541a623e50e39ef",
-      sha256 = "27eb7401e2310d5279a52ce1fbeb695c1dc2dcc6b999d1e730e11b98cac5e0f5",
+      urls = ["https://github.com/abseil/abseil-cpp/archive/846e5dbedac123d12455adcfe6f53c8b5dcbfeef.zip","https://github.com/abseil/abseil-cpp/archive/846e5dbedac123d12455adcfe6f53c8b5dcbfeef.zip"],  # 2019-10-31T19:15:43Z use the same URL twice to trick bazel into re-trying if connection fails
+      strip_prefix = "abseil-cpp-846e5dbedac123d12455adcfe6f53c8b5dcbfeef",
+      sha256 = "4fd748afbda72289d695a1ed470e0d0ffe3e668696b83c99339421430f08edd6",
 )
 
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/0a03480824b4fc7883255dbd2fd8940c9f81e22e.zip","https://github.com/google/googletest/archive/0a03480824b4fc7883255dbd2fd8940c9f81e22e.zip"],  # 2019-10-30T20:49:09Z use the same URL twice to trick bazel into re-trying if connection fails
-      strip_prefix = "googletest-0a03480824b4fc7883255dbd2fd8940c9f81e22e",
-      sha256 = "f95f14a6c7c9baf3c62414f4cdeb681ed1c3935c986b103148967b646ea21e30",
+      urls = ["https://github.com/google/googletest/archive/2db3df9c4f825591dfce2d6909cebe4a3f073910.zip","https://github.com/google/googletest/archive/2db3df9c4f825591dfce2d6909cebe4a3f073910.zip"],  # 2019-10-31T19:11:41Z use the same URL twice to trick bazel into re-trying if connection fails
+      strip_prefix = "googletest-2db3df9c4f825591dfce2d6909cebe4a3f073910",
+      sha256 = "b60502a3c2634a72373b4d480eec4af5a8f7bd5362e20a4a394d670c636fed65",
 )
 
 # ********** com_github_google_benchmark *****************
