@@ -34,9 +34,9 @@ def federation_deps():
 # ********** com_google_googletest *****************
     http_archive(
       name = "com_google_googletest",
-      urls = ["https://github.com/google/googletest/archive/e08a4602778b3cbea36dbd53724db0f18840e274.zip","https://github.com/google/googletest/archive/e08a4602778b3cbea36dbd53724db0f18840e274.zip"],  # 2019-11-05T22:08:36Z use the same URL twice to trick bazel into re-trying if connection fails
-      strip_prefix = "googletest-e08a4602778b3cbea36dbd53724db0f18840e274",
-      sha256 = "e61707acc8dc7cba49c52cf220cec973ea2f4591d05a1c1d2341c9483d6003e5",
+      urls = ["https://github.com/google/googletest/archive/d5707695cb020ace53dc35f30dd1c3f463daf98e.zip","https://github.com/google/googletest/archive/d5707695cb020ace53dc35f30dd1c3f463daf98e.zip"],  # 2019-11-08T20:47:19Z use the same URL twice to trick bazel into re-trying if connection fails
+      strip_prefix = "googletest-d5707695cb020ace53dc35f30dd1c3f463daf98e",
+      sha256 = "b0bf7cf3c120cdfff4ccd90a004b09637448c7b52593136847e527378abdd067",
 )
 
 # ********** com_github_google_benchmark *****************
