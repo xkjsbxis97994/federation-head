@@ -29,14 +29,14 @@ def federation_deps():
 
     # ********** com_google_absl *****************
     http_archive(
-      name = "com_google_absl",  # 2020-01-30T21:03:33Z
+      name = "com_google_absl",  # 2020-01-31T22:10:19Z
       urls = [
            # Use the same URL twice to trick bazel into re-trying if connection fails
-           "https://github.com/abseil/abseil-cpp/archive/c512f118dde6ffd51cb7d8ac8804bbaf4d266c3a.zip",
-           "https://github.com/abseil/abseil-cpp/archive/c512f118dde6ffd51cb7d8ac8804bbaf4d266c3a.zip"
+           "https://github.com/abseil/abseil-cpp/archive/0f86336b6939ea673cc1cbe29189286cae67d63a.zip",
+           "https://github.com/abseil/abseil-cpp/archive/0f86336b6939ea673cc1cbe29189286cae67d63a.zip"
       ],
-      strip_prefix = "abseil-cpp-c512f118dde6ffd51cb7d8ac8804bbaf4d266c3a",
-      sha256 = "8400c511d64eb4d26f92c5ec72535ebd0f843067515244e8b50817b0786427f9",
+      strip_prefix = "abseil-cpp-0f86336b6939ea673cc1cbe29189286cae67d63a",
+      sha256 = "796aed2d68fa581905944daea8e6c3e3698d31c0aab8eee8053f146e29058ab9",
     )
 
     # ********** com_google_googletest *****************
@@ -53,14 +53,14 @@ def federation_deps():
 
     # ********** com_github_google_benchmark *****************
     http_archive(
-      name = "com_github_google_benchmark",  # 2020-01-30T13:29:17Z
+      name = "com_github_google_benchmark",  # 2020-01-31T10:16:25Z
       urls = [
            # Use the same URL twice to trick bazel into re-trying if connection fails
-           "https://github.com/google/benchmark/archive/5ac80de0379ae1153ca6ef141df89ecf53bf1110.zip",
-           "https://github.com/google/benchmark/archive/5ac80de0379ae1153ca6ef141df89ecf53bf1110.zip"
+           "https://github.com/google/benchmark/archive/e5ea03ce07997620980636b3ee7e6117d68bc6ad.zip",
+           "https://github.com/google/benchmark/archive/e5ea03ce07997620980636b3ee7e6117d68bc6ad.zip"
       ],
-      strip_prefix = "benchmark-5ac80de0379ae1153ca6ef141df89ecf53bf1110",
-      sha256 = "e6c5f35e67658e87bab3ef93741a0256922ceb2f08cd81c7c11bef789554da86",
+      strip_prefix = "benchmark-e5ea03ce07997620980636b3ee7e6117d68bc6ad",
+      sha256 = "aad496b7234810f6a9c6a7cc9de22d32ee4351635430be8039e59800b0a50532",
     )
 
     # ********** zlib (pinned to 1.2.11) *****************
